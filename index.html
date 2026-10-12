@@ -122,6 +122,7 @@
             display: flex;
             gap: 1.5rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -134,6 +135,22 @@
 
         .nav-links a:hover {
             color: var(--accent);
+        }
+
+        .nav-btn {
+            font-family: var(--font-mono);
+            font-size: 0.78rem !important;
+            color: var(--accent) !important;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            background: var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(56, 189, 248, 0.25) !important;
+            transform: translateY(-1px);
         }
 
         /* Hero Section */
@@ -198,7 +215,7 @@
             line-height: 1.7;
         }
 
-        /* Stats Bar Inspired by Top Portfolios */
+        /* Stats Bar */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -413,6 +430,62 @@
             transform: translateY(-2px);
         }
 
+        .btn-primary {
+            background: var(--accent);
+            color: #07090e;
+            border-color: var(--accent);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: #7dd3fc;
+            color: #07090e;
+        }
+
+        /* Working Contact Form Styling */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            max-width: 650px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: rgba(7, 9, 14, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -435,7 +508,7 @@
     </div>
 
     <div class="wrapper">
-        <!-- Floating Glass Nav (Right Aligned) -->
+        <!-- Floating Glass Nav -->
         <nav>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
@@ -443,6 +516,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="resume.pdf" target="_blank" class="nav-btn">Resume 📄</a></li>
             </ul>
         </nav>
 
@@ -457,6 +531,15 @@
                 Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
                 Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
             </p>
+
+            <div class="btn-group">
+                <a href="resume.pdf" target="_blank" class="btn btn-primary">
+                    Download Resume / CV 📄
+                </a>
+                <a href="#contact" class="btn">
+                    Send Message ✉️
+                </a>
+            </div>
 
             <!-- Quick Stats Bar -->
             <div class="stats-bar">
@@ -570,14 +653,40 @@
                 </div>
             </div>
 
-            <!-- Connect Card (Span 12) -->
+            <!-- Connect Card with Form (Span 12) -->
             <div class="bento-card col-span-12" id="contact">
                 <div class="section-tag">// 05. GET IN TOUCH</div>
-                <h2 class="card-title">Open for Full-Stack & Hardware Collaborations</h2>
-                <p class="card-text" style="max-width: 600px; margin-bottom: 1rem;">
-                    Looking for opportunities or project partnerships in full-stack development, embedded systems, and IoT automation. Connect via GitHub or Facebook below:
+                <h2 class="card-title">Send a Direct Message</h2>
+                <p class="card-text" style="max-width: 650px; margin-bottom: 1rem;">
+                    Have a project idea, collaboration opportunity, or hardware inquiry? Send a direct email through the form below or connect on social media:
                 </p>
-                <div class="btn-group">
+
+                <!-- Web3Forms Working Contact Form -->
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Portfolio Message from Lumacad Web Site">
+
+                    <div class="form-group">
+                        <label for="name">// YOUR NAME</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">// YOUR EMAIL</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">// MESSAGE</label>
+                        <textarea id="message" name="message" required placeholder="Let's build something together..." class="form-textarea"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">
+                        Send Message 🚀
+                    </button>
+                </form>
+
+                <div class="btn-group" style="margin-top: 2rem;">
                     <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn">
                         Explore GitHub Profile ↗
                     </a>
