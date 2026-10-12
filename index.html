@@ -1,1 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMACAD, MARK JONEL C. — Full-Stack & Embedded Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #07090e;
+            --card-bg: rgba(13, 17, 28, 0.75);
+            --card-border: rgba(56, 189, 248, 0.12);
+            --card-border-hover: rgba(56, 189, 248, 0.4);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated Moving Background Orbs */
+        .ambient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+            background: #07090e;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: floatOrb 18s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: #38bdf8;
+            top: -10%;
+            left: 10%;
+            animation-duration: 15s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #0284c7;
+            bottom: -20%;
+            right: 5%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: #818cf8;
+            top: 40%;
+            left: 60%;
+            animation-duration: 18s;
+            animation-delay: -2s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(60px, 80px) scale(1.1); }
+            100% { transform: translate(-50px, -60px) scale(0.9); }
+        }
+
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Glass Nav (Right Aligned) */
+        nav {
+            position: sticky;
+            top: 1.5rem;
+            z-index: 100;
+            background: rgba(7, 9, 14, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 100px;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.85); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 750px;
+            line-height: 1.7;
+        }
+
+        /* Stats Bar Inspired by Top Portfolios */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(13, 17, 28, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .stat-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: var(--font-mono);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Bento Grid System */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.25rem;
+        }
+
+        .bento-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bento-card:hover {
+            border-color: var(--card-border-hover);
+            box-shadow: 0 20px 40px -15px var(--accent-glow);
+            transform: translateY(-3px);
+        }
+
+        /* Card Span Sizes */
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+
+        @media (max-width: 900px) {
+            .col-span-8, .col-span-4 {
+                grid-column: span 12;
+            }
+        }
+
+        .section-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* About & Education Content */
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Skills Lists */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-category h3 {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .skill-category li {
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category li::before {
+            content: "›";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Project Card Styling */
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 0.35rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .workflow-box {
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--card-border);
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 1.25rem 0;
+        }
+
+        .workflow-box ul {
+            padding-left: 1.2rem;
+        }
+
+        .workflow-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .tech-pill {
+            background: rgba(30, 41, 59, 0.6);
+            color: var(--text-muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Moving Background Orbs -->
+    <div class="ambient-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="wrapper">
+        <!-- Floating Glass Nav (Right Aligned) -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="status-badge">
+                <span class="status-dot"></span> 4th-Year CpE Student & AI-Driven Full-Stack Developer
+            </div>
+            <h1>LUMACAD, MARK JONEL C.</h1>
+            <p class="hero-subtitle">AI-Driven Full-Stack Development // Engineering Prompt Architecture // Embedded Systems</p>
+            <p class="hero-desc">
+                Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
+                Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
+            </p>
+
+            <!-- Quick Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number">4th-Year</span>
+                    <span class="stat-label">// Academic Standing</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Embedded & Web</span>
+                    <span class="stat-label">// Core Focus</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">AI-Driven</span>
+                    <span class="stat-label">// Build Methodology</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Bento Grid Layout -->
+        <main class="bento-grid">
+            
+            <!-- About Card (Span 8) -->
+            <div class="bento-card col-span-8" id="about">
+                <div class="section-tag">// 01. BACKGROUND & IDENTITY</div>
+                <h2 class="card-title">End-to-End System Architecture</h2>
+                <p class="card-text">
+                    As an AI-driven Full-Stack Developer, my expertise lies in system architecture, component integration, and workflow orchestration. 
+                    I utilize AI engineering prompt workflows to rapidly build and refine responsive web frontends and backend logic, while leveraging my Computer Engineering foundation to bridge microcontrollers (ESP32) with real-time physical peripherals and automation prototypes.
+                </p>
+            </div>
+
+            <!-- Education Card (Span 4) -->
+            <div class="bento-card col-span-4" id="education">
+                <div class="section-tag">// 02. EDUCATION</div>
+                <h2 class="card-title" style="font-size: 1.25rem;">BS Computer Engineering</h2>
+                <p class="card-text" style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>4th-Year Standing</strong></p>
+                <p class="card-text" style="font-size: 0.9rem; color: var(--text-main);">ICCT Colleges Foundation Inc.</p>
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-top: 0.5rem;">College of Engineering & Digital Tech</p>
+            </div>
+
+            <!-- Technical Stack Card (Span 12) -->
+            <div class="bento-card col-span-12" id="skills">
+                <div class="section-tag">// 03. TECHNICAL COMPETENCIES</div>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Full-Stack & Prompt Engineering</h3>
+                        <ul>
+                            <li>AI-Driven Full-Stack Architecture</li>
+                            <li>Engineering Prompt Design</li>
+                            <li>Frontend UI/UX Systems</li>
+                            <li>Backend Workflow & Logic</li>
+                            <li>API Integration & Data Flow</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Hardware & Prototyping</h3>
+                        <ul>
+                            <li>ESP32 Microcontroller Dev</li>
+                            <li>Arduino System Wiring</li>
+                            <li>ILI9488 TFT LCD Integration</li>
+                            <li>OVW6 Rotary Encoders</li>
+                            <li>Circuit Troubleshooting</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Engineering Core</h3>
+                        <ul>
+                            <li>C / C++ Microcontroller Concepts</li>
+                            <li>Arduino IDE Environment</li>
+                            <li>Serial Debugging & Logging</li>
+                            <li>Interrupt-driven Code Logic</li>
+                            <li>Git & Repository Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Project Card (Span 12) -->
+            <div class="bento-card col-span-12" id="projects">
+                <div class="section-tag">// 04. FEATURED ENGINEERING PROJECT</div>
+                <div class="project-top">
+                    <div>
+                        <h2 class="card-title" style="font-size: 1.35rem;">MetroSure — Digital Measuring & Tracking System</h2>
+                        <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Lead Hardware & Embedded Developer</p>
+                    </div>
+                    <span class="project-tag">Prototype Stage</span>
+                </div>
+                
+                <p class="card-text" style="margin-bottom: 1rem;">
+                    An embedded hardware prototype built to accurately measure and track the displacement length 
+                    of aluminum profiles during manual cutting operations, minimizing manual measurement errors.
+                </p>
+
+                <div class="workflow-box">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">// Core System Workflow Logic:</p>
+                    <ul>
+                        <li>User inputs target length via TFT touchscreen interface.</li>
+                        <li>START command triggers measurement tracking sequence.</li>
+                        <li>Measuring wheel coupled with rotary encoder monitors profile feed distance.</li>
+                        <li>ESP32 processes pulse feedback and updates display metrics in real-time.</li>
+                        <li>System indicates target completion sequence before cutting.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-pill">ESP32-S3</span>
+                    <span class="tech-pill">C++ / Arduino IDE</span>
+                    <span class="tech-pill">3.5" ILI9488 TFT</span>
+                    <span class="tech-pill">XPT2046 Touch</span>
+                    <span class="tech-pill">OVW6-1024-2HC Encoder</span>
+                </div>
+            </div>
+
+            <!-- Connect Card (Span 12) -->
+            <div class="bento-card col-span-12" id="contact">
+                <div class="section-tag">// 05. GET IN TOUCH</div>
+                <h2 class="card-title">Open for Full-Stack & Hardware Collaborations</h2>
+                <p class="card-text" style="max-width: 600px; margin-bottom: 1rem;">
+                    Looking for opportunities or project partnerships in full-stack development, embedded systems, and IoT automation. Connect via GitHub or Facebook below:
+                </p>
+                <div class="btn-group">
+                    <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn">
+                        Explore GitHub Profile ↗
+                    </a>
+                    <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="btn">
+                        Connect on Facebook ↗
+                    </a>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>LUMACAD, MARK JONEL C. &copy; 2026 // Computer Engineering Portfolio</p>
+        </footer>
+    </div>
+
+</body>
+</html>
