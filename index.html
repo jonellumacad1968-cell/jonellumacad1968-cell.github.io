@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LUMACAD, MARK JONEL C. — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,14 +30,15 @@
         html, body {
             width: 100%;
             height: 100vh;
-            overflow: hidden; /* Disables window scrolling */
+            overflow: hidden; /* Zero scroll on outer document */
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
-            line-height: 1.6;
+            line-height: 1.45;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Ambient Animated Orbs */
+        /* Ambient Orbs */
         .ambient-background {
             position: fixed;
             top: 0;
@@ -52,14 +53,14 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
+            filter: blur(80px);
             opacity: 0.18;
             animation: floatOrb 18s infinite alternate ease-in-out;
         }
 
         .orb-1 {
-            width: 450px;
-            height: 450px;
+            width: 380px;
+            height: 380px;
             background: #38bdf8;
             top: -10%;
             left: 10%;
@@ -67,8 +68,8 @@
         }
 
         .orb-2 {
-            width: 500px;
-            height: 500px;
+            width: 420px;
+            height: 420px;
             background: #0284c7;
             bottom: -20%;
             right: 5%;
@@ -78,54 +79,60 @@
 
         @keyframes floatOrb {
             0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(60px, 80px) scale(1.1); }
-            100% { transform: translate(-50px, -60px) scale(0.9); }
+            50% { transform: translate(30px, 50px) scale(1.05); }
+            100% { transform: translate(-30px, -30px) scale(0.95); }
         }
 
-        /* App Wrapper Layout */
+        /* App Fixed Layout Shell */
         .app-container {
             position: relative;
             z-index: 1;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 850px;
             height: 100vh;
             margin: 0 auto;
-            padding: 1.5rem 1.5rem 2rem 1.5rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
 
-        /* Fixed Navigation Header */
+        /* Top Fixed Navigation */
         nav {
-            background: rgba(7, 9, 14, 0.7);
+            background: rgba(7, 9, 14, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             border-radius: 100px;
-            padding: 0.75rem 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.85rem;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
+            width: 100%;
         }
 
         .nav-links {
             display: flex;
-            gap: 1.75rem;
+            gap: 1.15rem;
             list-style: none;
             align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             font-family: var(--font-sans);
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             position: relative;
-            padding: 0.2rem 0;
+            padding: 0.15rem 0;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .nav-links a:hover, .nav-links a.active {
@@ -144,81 +151,69 @@
             box-shadow: 0 0 8px var(--accent);
         }
 
-        /* Content Container for Viewport Views */
+        /* Viewport Frame */
         .view-viewport {
-            flex: 1;
             position: relative;
             width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .view-section {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(0.96) translateY(12px);
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                        visibility 0.4s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            pointer-events: none;
+        }
+
+        .view-section {
+            display: none;
+            opacity: 0;
+            transform: scale(0.97) translateY(8px);
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
         }
 
         .view-section.active {
+            display: block;
             opacity: 1;
-            visibility: visible;
             transform: scale(1) translateY(0);
-            pointer-events: auto;
         }
 
-        /* Glass Card Component */
+        /* Single Glass Card (Strictly Fitting Viewport) */
         .glass-card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 2rem;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            max-height: 100%;
-            overflow-y: auto;
+            height: auto;
+            width: 100%;
             box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
-        /* Custom Scrollbars inside cards if content overflows height */
-        .glass-card::-webkit-scrollbar {
-            width: 6px;
-        }
-        .glass-card::-webkit-scrollbar-thumb {
-            background: rgba(56, 189, 248, 0.2);
-            border-radius: 10px;
-        }
-
-        /* Typography & Badges */
+        /* Typography & Indicators */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.4rem;
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             background: var(--accent-glow);
             color: var(--accent);
-            padding: 0.4rem 1rem;
+            padding: 0.3rem 0.75rem;
             border-radius: 50px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
+            align-self: flex-start;
         }
 
         .status-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             background-color: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 8px var(--accent);
             animation: pulse-glow 2s infinite;
         }
 
@@ -229,11 +224,11 @@
         }
 
         h1 {
-            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            font-size: clamp(1.6rem, 3.2vw, 2.35rem);
             font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            margin-bottom: 0.75rem;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 0.4rem;
             background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -241,69 +236,70 @@
 
         .section-tag {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 0.65rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             font-weight: 600;
             background: var(--accent-glow);
-            padding: 0.3rem 0.8rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 50px;
             border: 1px solid rgba(56, 189, 248, 0.25);
+            align-self: flex-start;
         }
 
         .card-title {
-            font-size: 1.6rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-text {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .hero-subtitle {
             font-family: var(--font-mono);
             color: var(--accent);
-            font-size: 1.05rem;
-            margin-bottom: 1.25rem;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
         }
 
-        /* Stats Bar */
+        /* Stats Component */
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+            margin-top: 1rem;
         }
 
         .stat-item {
             background: rgba(13, 17, 28, 0.6);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            padding: 0.65rem;
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 0.1rem;
         }
 
         .stat-number {
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #fff;
             font-family: var(--font-mono);
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             font-family: var(--font-mono);
         }
@@ -311,29 +307,29 @@
         /* Skills Lists */
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
         }
 
         .skill-category h3 {
             font-family: var(--font-mono);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--accent);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.4rem;
         }
 
         .skill-category ul {
             list-style: none;
-            font-size: 0.95rem;
+            font-size: 0.825rem;
             color: var(--text-muted);
         }
 
         .skill-category li {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .skill-category li::before {
@@ -348,16 +344,16 @@
             justify-content: space-between;
             align-items: flex-start;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .project-tag {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             background: var(--accent-glow);
             color: var(--accent);
-            padding: 0.35rem 0.8rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 6px;
             border: 1px solid rgba(56, 189, 248, 0.25);
         }
@@ -365,93 +361,51 @@
         .workflow-box {
             background: rgba(3, 7, 18, 0.6);
             border: 1px solid var(--card-border);
-            padding: 1.25rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.825rem;
             color: var(--text-muted);
-            margin: 1.25rem 0;
+            margin: 0.75rem 0;
         }
 
         .workflow-box ul {
-            padding-left: 1.2rem;
+            padding-left: 0.85rem;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
-            margin-top: 1rem;
+            font-size: 0.725rem;
+            margin-top: 0.5rem;
         }
 
         .tech-pill {
             background: rgba(30, 41, 59, 0.6);
             color: var(--text-muted);
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
             border: 1px solid var(--card-border);
         }
 
-        /* Form & Buttons */
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1.75rem;
-        }
-
-        .btn {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            background: rgba(30, 41, 59, 0.8);
-            color: var(--text-main);
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-glow);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #07090e;
-            border-color: var(--accent);
-            font-weight: 700;
-        }
-
-        .btn-primary:hover {
-            background: #7dd3fc;
-            color: #07090e;
-        }
-
+        /* Contact Form */
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.25rem;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.2rem;
         }
 
         .form-group label {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
 
@@ -459,22 +413,72 @@
             width: 100%;
             background: rgba(7, 9, 14, 0.6);
             border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
             color: var(--text-main);
             font-family: var(--font-sans);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             outline: none;
         }
 
         .form-input:focus, .form-textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
+            box-shadow: 0 0 8px var(--accent-glow);
         }
 
         .form-textarea {
-            resize: vertical;
-            min-height: 100px;
+            resize: none;
+            height: 65px;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+
+        .submit-btn {
+            font-family: var(--font-mono);
+            font-size: 0.775rem;
+            background: var(--accent);
+            color: #07090e;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #7dd3fc;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--text-main);
+            padding: 0.5rem 0.85rem;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
         }
 
         /* Success Popup Modal */
@@ -487,23 +491,28 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .modal-content {
             background: rgba(13, 17, 28, 0.95);
             border: 1px solid var(--card-border-hover);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            max-width: 420px;
+            border-radius: 16px;
+            padding: 1.5rem;
+            max-width: 350px;
             width: 100%;
             text-align: center;
         }
 
-        @media (max-width: 768px) {
-            .nav-links { gap: 1rem; }
-            .nav-links a { font-size: 0.8rem; }
-            .glass-card { padding: 1.5rem; }
+        @media (max-width: 640px) {
+            .app-container { padding: 0.6rem; }
+            nav { padding: 0.4rem 0.6rem; margin-bottom: 0.6rem; }
+            .nav-links { gap: 0.6rem; }
+            .nav-links a { font-size: 0.75rem; }
+            .glass-card { padding: 1rem; }
+            .stats-bar { grid-template-columns: 1fr; gap: 0.4rem; }
+            .action-row { flex-direction: column; align-items: stretch; }
+            .social-links { justify-content: space-between; }
         }
     </style>
 </head>
@@ -515,7 +524,7 @@
     </div>
 
     <div class="app-container">
-        <!-- Persistent Top Glass Navbar -->
+        <!-- Navigation Header -->
         <nav>
             <ul class="nav-links">
                 <li><a class="nav-btn active" data-target="home">Home</a></li>
@@ -527,7 +536,7 @@
             </ul>
         </nav>
 
-        <!-- Viewport View Area -->
+        <!-- Viewport Cards Area -->
         <main class="view-viewport">
 
             <!-- HOME SECTION -->
@@ -544,11 +553,6 @@
                         Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
                         Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
                     </p>
-
-                    <div class="btn-group">
-                        <a href="resume.pdf" target="_blank" class="btn btn-primary">Download Resume / CV</a>
-                        <button class="btn nav-btn" data-target="contact">Send Message</button>
-                    </div>
 
                     <div class="stats-bar">
                         <div class="stat-item">
@@ -572,7 +576,7 @@
                 <div class="glass-card">
                     <div class="section-tag"><span class="status-dot"></span> Background & Identity</div>
                     <h2 class="card-title">End-to-End System Architecture</h2>
-                    <p class="card-text" style="margin-bottom: 1rem;">
+                    <p class="card-text" style="margin-bottom: 0.85rem;">
                         As an AI-driven Full-Stack Developer, my expertise lies in system architecture, component integration, and workflow orchestration.
                     </p>
                     <p class="card-text">
@@ -626,8 +630,8 @@
                     <div class="section-tag"><span class="status-dot"></span> Featured Engineering Project</div>
                     <div class="project-top">
                         <div>
-                            <h2 class="card-title" style="font-size: 1.35rem;">MetroSure — Digital Measuring & Tracking System</h2>
-                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Lead Hardware & Embedded Developer</p>
+                            <h2 class="card-title">MetroSure — Digital Measuring & Tracking System</h2>
+                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Lead Hardware & Embedded Developer</p>
                         </div>
                         <span class="project-tag">Prototype Stage</span>
                     </div>
@@ -638,7 +642,7 @@
                     </p>
 
                     <div class="workflow-box">
-                        <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">
+                        <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-main); margin-bottom: 0.4rem;">
                             Core System Workflow Logic:
                         </p>
                         <ul>
@@ -663,9 +667,9 @@
                 <div class="glass-card">
                     <div class="section-tag"><span class="status-dot"></span> Education</div>
                     <h2 class="card-title">BS Computer Engineering</h2>
-                    <p class="card-text" style="font-size: 1.1rem; margin-bottom: 0.5rem;"><strong>4th-Year Standing</strong></p>
+                    <p class="card-text" style="font-size: 1rem; margin-bottom: 0.35rem;"><strong>4th-Year Standing</strong></p>
                     <p class="card-text" style="color: var(--text-main);">ICCT Colleges Foundation Inc.</p>
-                    <p style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); margin-top: 0.75rem;">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); margin-top: 0.5rem;">
                         College of Engineering & Digital Technology
                     </p>
                 </div>
@@ -695,19 +699,16 @@
                             <textarea id="message" name="message" required placeholder="Let's build something together..." class="form-textarea"></textarea>
                         </div>
 
-                        <button type="submit" id="submitBtn" class="btn btn-primary" style="align-self: flex-start;">
-                            Send Message
-                        </button>
+                        <div class="action-row">
+                            <button type="submit" id="submitBtn" class="submit-btn">
+                                Send Message
+                            </button>
+                            <div class="social-links">
+                                <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="social-btn">GitHub</a>
+                                <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="social-btn">Facebook</a>
+                            </div>
+                        </div>
                     </form>
-
-                    <div class="btn-group" style="margin-top: 1.5rem;">
-                        <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn" aria-label="GitHub Profile">
-                            Explore GitHub Profile
-                        </a>
-                        <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="btn" aria-label="Facebook Profile">
-                            Connect on Facebook
-                        </a>
-                    </div>
                 </div>
             </section>
 
@@ -717,18 +718,18 @@
     <!-- Success Popup Modal -->
     <div id="successModal">
         <div class="modal-content">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
-            <h3 style="color: #fff; font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;">Message Sent!</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+            <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.3rem;">Message Sent!</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
                 Thank you for reaching out. Your message has been delivered to Mark Jonel.
             </p>
-            <button id="modalOkBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            <button id="modalOkBtn" class="submit-btn" style="width: 100%; text-align: center;">
                 OK — Return Home
             </button>
         </div>
     </div>
 
-    <!-- SPA Router Script -->
+    <!-- Router Script -->
     <script>
         const navButtons = document.querySelectorAll('.nav-btn');
         const sections = document.querySelectorAll('.view-section');
@@ -738,14 +739,21 @@
         const submitBtn = document.getElementById('submitBtn');
 
         function switchSection(targetId) {
-            // Update active navbar state
             document.querySelectorAll('.nav-links .nav-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-target') === targetId);
             });
 
-            // Transition active section card
             sections.forEach(section => {
-                section.classList.toggle('active', section.id === targetId);
+                const isActive = section.id === targetId;
+                if (isActive) {
+                    section.style.display = 'block';
+                    setTimeout(() => {
+                        section.classList.add('active');
+                    }, 10);
+                } else {
+                    section.classList.remove('active');
+                    section.style.display = 'none';
+                }
             });
         }
 
@@ -756,7 +764,6 @@
             });
         });
 
-        // Contact Form Handling via Fetch API
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
