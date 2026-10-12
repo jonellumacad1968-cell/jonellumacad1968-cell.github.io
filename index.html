@@ -101,7 +101,7 @@
             z-index: 1;
         }
 
-        /* Floating Glass Nav (Right Aligned) */
+        /* Floating Glass Nav */
         nav {
             position: sticky;
             top: 1.5rem;
@@ -135,22 +135,6 @@
 
         .nav-links a:hover {
             color: var(--accent);
-        }
-
-        .nav-btn {
-            font-family: var(--font-mono);
-            font-size: 0.78rem !important;
-            color: var(--accent) !important;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 0.35rem 0.9rem;
-            border-radius: 50px;
-            background: var(--accent-glow);
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background: rgba(56, 189, 248, 0.25) !important;
-            transform: translateY(-1px);
         }
 
         /* Hero Section */
@@ -286,13 +270,17 @@
             font-family: var(--font-mono);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             color: var(--accent);
             margin-bottom: 1rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-weight: 700;
+            font-weight: 600;
+            background: var(--accent-glow);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
         }
 
         /* About & Education Content */
@@ -461,6 +449,9 @@
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         .form-input, .form-textarea {
@@ -516,7 +507,6 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="resume.pdf" target="_blank" class="nav-btn">Resume 📄</a></li>
             </ul>
         </nav>
 
@@ -526,7 +516,10 @@
                 <span class="status-dot"></span> 4th-Year CpE Student & AI-Driven Full-Stack Developer
             </div>
             <h1>LUMACAD, MARK JONEL C.</h1>
-            <p class="hero-subtitle">AI-Driven Full-Stack Development // Engineering Prompt Architecture // Embedded Systems</p>
+            <p class="hero-subtitle">
+                <span class="status-dot" style="display:inline-block; margin-right: 0.4rem;"></span>
+                AI-Driven Full-Stack Development | Engineering Prompt Architecture | Embedded Systems
+            </p>
             <p class="hero-desc">
                 Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
                 Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
@@ -534,10 +527,10 @@
 
             <div class="btn-group">
                 <a href="resume.pdf" target="_blank" class="btn btn-primary">
-                    Download Resume / CV 📄
+                    Download Resume / CV
                 </a>
                 <a href="#contact" class="btn">
-                    Send Message ✉️
+                    Send Message
                 </a>
             </div>
 
@@ -545,15 +538,15 @@
             <div class="stats-bar">
                 <div class="stat-item">
                     <span class="stat-number">4th-Year</span>
-                    <span class="stat-label">// Academic Standing</span>
+                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Academic Standing</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">Embedded & Web</span>
-                    <span class="stat-label">// Core Focus</span>
+                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Core Focus</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">AI-Driven</span>
-                    <span class="stat-label">// Build Methodology</span>
+                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Build Methodology</span>
                 </div>
             </div>
         </header>
@@ -563,7 +556,7 @@
             
             <!-- About Card (Span 8) -->
             <div class="bento-card col-span-8" id="about">
-                <div class="section-tag">// 01. BACKGROUND & IDENTITY</div>
+                <div class="section-tag"><span class="status-dot"></span> Background & Identity</div>
                 <h2 class="card-title">End-to-End System Architecture</h2>
                 <p class="card-text">
                     As an AI-driven Full-Stack Developer, my expertise lies in system architecture, component integration, and workflow orchestration. 
@@ -573,7 +566,7 @@
 
             <!-- Education Card (Span 4) -->
             <div class="bento-card col-span-4" id="education">
-                <div class="section-tag">// 02. EDUCATION</div>
+                <div class="section-tag"><span class="status-dot"></span> Education</div>
                 <h2 class="card-title" style="font-size: 1.25rem;">BS Computer Engineering</h2>
                 <p class="card-text" style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>4th-Year Standing</strong></p>
                 <p class="card-text" style="font-size: 0.9rem; color: var(--text-main);">ICCT Colleges Foundation Inc.</p>
@@ -582,7 +575,7 @@
 
             <!-- Technical Stack Card (Span 12) -->
             <div class="bento-card col-span-12" id="skills">
-                <div class="section-tag">// 03. TECHNICAL COMPETENCIES</div>
+                <div class="section-tag"><span class="status-dot"></span> Technical Competencies</div>
                 <div class="skills-container">
                     <div class="skill-category">
                         <h3>Full-Stack & Prompt Engineering</h3>
@@ -619,7 +612,7 @@
 
             <!-- Featured Project Card (Span 12) -->
             <div class="bento-card col-span-12" id="projects">
-                <div class="section-tag">// 04. FEATURED ENGINEERING PROJECT</div>
+                <div class="section-tag"><span class="status-dot"></span> Featured Engineering Project</div>
                 <div class="project-top">
                     <div>
                         <h2 class="card-title" style="font-size: 1.35rem;">MetroSure — Digital Measuring & Tracking System</h2>
@@ -634,7 +627,9 @@
                 </p>
 
                 <div class="workflow-box">
-                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">// Core System Workflow Logic:</p>
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">
+                        <span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Core System Workflow Logic:
+                    </p>
                     <ul>
                         <li>User inputs target length via TFT touchscreen interface.</li>
                         <li>START command triggers measurement tracking sequence.</li>
@@ -655,7 +650,7 @@
 
             <!-- Connect Card with Form (Span 12) -->
             <div class="bento-card col-span-12" id="contact">
-                <div class="section-tag">// 05. GET IN TOUCH</div>
+                <div class="section-tag"><span class="status-dot"></span> Get In Touch</div>
                 <h2 class="card-title">Send a Direct Message</h2>
                 <p class="card-text" style="max-width: 650px; margin-bottom: 1rem;">
                     Have a project idea, collaboration opportunity, or hardware inquiry? Send a direct email through the form below or connect on social media:
@@ -667,31 +662,31 @@
                     <input type="hidden" name="subject" value="New Portfolio Message from Lumacad Web Site">
 
                     <div class="form-group">
-                        <label for="name">// YOUR NAME</label>
-                        <input type="text" id="name" name="name" required placeholder="John Doe" class="form-input">
+                        <label for="name"><span class="status-dot" style="display:inline-block;"></span> YOUR NAME</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name" class="form-input">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">// YOUR EMAIL</label>
-                        <input type="email" id="email" name="email" required placeholder="john@example.com" class="form-input">
+                        <label for="email"><span class="status-dot" style="display:inline-block;"></span> YOUR EMAIL</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address" class="form-input">
                     </div>
 
                     <div class="form-group">
-                        <label for="message">// MESSAGE</label>
+                        <label for="message"><span class="status-dot" style="display:inline-block;"></span> MESSAGE</label>
                         <textarea id="message" name="message" required placeholder="Let's build something together..." class="form-textarea"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">
-                        Send Message 🚀
+                        Send Message
                     </button>
                 </form>
 
                 <div class="btn-group" style="margin-top: 2rem;">
                     <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn">
-                        Explore GitHub Profile ↗
+                        Explore GitHub Profile
                     </a>
                     <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="btn">
-                        Connect on Facebook ↗
+                        Connect on Facebook
                     </a>
                 </div>
             </div>
@@ -699,7 +694,7 @@
         </main>
 
         <footer>
-            <p>LUMACAD, MARK JONEL C. &copy; 2026 // Computer Engineering Portfolio</p>
+            <p>LUMACAD, MARK JONEL C. &copy; 2026 | Computer Engineering Portfolio</p>
         </footer>
     </div>
 
