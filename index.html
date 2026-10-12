@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMACAD, MARK JONEL C. — Full-Stack & Embedded Developer</title>
+    <title>LUMACAD, MARK JONEL C. — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #07090e;
-            --card-bg: rgba(13, 17, 28, 0.75);
-            --card-border: rgba(56, 189, 248, 0.12);
+            --card-bg: rgba(13, 17, 28, 0.85);
+            --card-border: rgba(56, 189, 248, 0.15);
             --card-border-hover: rgba(56, 189, 248, 0.4);
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
@@ -27,17 +27,17 @@
             padding: 0;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden; /* Disables window scrolling */
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
             line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
         }
 
-        /* Animated Moving Background Orbs */
+        /* Ambient Animated Orbs */
         .ambient-background {
             position: fixed;
             top: 0;
@@ -45,16 +45,15 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            z-index: -1;
+            z-index: 0;
             pointer-events: none;
-            background: #07090e;
         }
 
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
+            filter: blur(90px);
+            opacity: 0.18;
             animation: floatOrb 18s infinite alternate ease-in-out;
         }
 
@@ -77,50 +76,42 @@
             animation-delay: -5s;
         }
 
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: #818cf8;
-            top: 40%;
-            left: 60%;
-            animation-duration: 18s;
-            animation-delay: -2s;
-        }
-
         @keyframes floatOrb {
             0% { transform: translate(0px, 0px) scale(1); }
             50% { transform: translate(60px, 80px) scale(1.1); }
             100% { transform: translate(-50px, -60px) scale(0.9); }
         }
 
-        .wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem 5rem 1.5rem;
+        /* App Wrapper Layout */
+        .app-container {
             position: relative;
             z-index: 1;
+            max-width: 1000px;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Floating Glass Nav */
+        /* Fixed Navigation Header */
         nav {
-            position: sticky;
-            top: 1.5rem;
-            z-index: 100;
-            background: rgba(7, 9, 14, 0.65);
+            background: rgba(7, 9, 14, 0.7);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             border-radius: 100px;
             padding: 0.75rem 1.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.75rem;
             list-style: none;
             align-items: center;
         }
@@ -130,19 +121,83 @@
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            font-family: var(--font-sans);
+            transition: all 0.25s ease;
+            position: relative;
+            padding: 0.2rem 0;
+            cursor: pointer;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--accent);
         }
 
-        /* Hero Section */
-        .hero {
-            margin-bottom: 3rem;
-            padding: 2rem 0;
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 8px var(--accent);
         }
 
+        /* Content Container for Viewport Views */
+        .view-viewport {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .view-section {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.96) translateY(12px);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .view-section.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Glass Card Component */
+        .glass-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            max-height: 100%;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Custom Scrollbars inside cards if content overflows height */
+        .glass-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .glass-card::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Typography & Badges */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -154,7 +209,7 @@
             padding: 0.4rem 1rem;
             border-radius: 50px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             font-weight: 500;
         }
 
@@ -174,7 +229,7 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
             font-weight: 800;
             letter-spacing: -1.5px;
             line-height: 1.1;
@@ -182,88 +237,6 @@
             background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 1.1rem;
-            margin-bottom: 1.25rem;
-            font-weight: 500;
-        }
-
-        .hero-desc {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 750px;
-            line-height: 1.7;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item {
-            background: rgba(13, 17, 28, 0.5);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 1rem 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .stat-number {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #fff;
-            font-family: var(--font-mono);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-        }
-
-        /* Bento Grid System */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.25rem;
-        }
-
-        .bento-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 2rem;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .bento-card:hover {
-            border-color: var(--card-border-hover);
-            box-shadow: 0 20px 40px -15px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-
-        /* Card Span Sizes */
-        .col-span-12 { grid-column: span 12; }
-        .col-span-8 { grid-column: span 8; }
-        .col-span-4 { grid-column: span 4; }
-
-        @media (max-width: 900px) {
-            .col-span-8, .col-span-4 {
-                grid-column: span 12;
-            }
         }
 
         .section-tag {
@@ -283,9 +256,8 @@
             border: 1px solid rgba(56, 189, 248, 0.25);
         }
 
-        /* About & Education Content */
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #fff;
             margin-bottom: 0.75rem;
@@ -293,16 +265,55 @@
 
         .card-text {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 1.05rem;
             line-height: 1.7;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(13, 17, 28, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: var(--font-mono);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
         }
 
         /* Skills Lists */
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
         }
 
         .skill-category h3 {
@@ -314,7 +325,7 @@
 
         .skill-category ul {
             list-style: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
         }
 
@@ -331,7 +342,7 @@
             font-weight: bold;
         }
 
-        /* Project Card Styling */
+        /* Project Layout */
         .project-top {
             display: flex;
             justify-content: space-between;
@@ -365,10 +376,6 @@
             padding-left: 1.2rem;
         }
 
-        .workflow-box li {
-            margin-bottom: 0.3rem;
-        }
-
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
@@ -386,12 +393,12 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Action Buttons */
+        /* Form & Buttons */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-top: 1.5rem;
+            margin-top: 1.75rem;
         }
 
         .btn {
@@ -415,7 +422,6 @@
             border-color: var(--accent);
             color: var(--accent);
             background: var(--accent-glow);
-            transform: translateY(-2px);
         }
 
         .btn-primary {
@@ -430,13 +436,11 @@
             color: #07090e;
         }
 
-        /* Working Contact Form Styling */
         .contact-form {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-top: 1.5rem;
-            max-width: 650px;
+            margin-top: 1.25rem;
         }
 
         .form-group {
@@ -449,9 +453,6 @@
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
         }
 
         .form-input, .form-textarea {
@@ -464,7 +465,6 @@
             font-family: var(--font-sans);
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s ease;
         }
 
         .form-input:focus, .form-textarea:focus {
@@ -474,229 +474,323 @@
 
         .form-textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
         }
 
-        /* Footer */
-        footer {
+        /* Success Popup Modal */
+        #successModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .modal-content {
+            background: rgba(13, 17, 28, 0.95);
+            border: 1px solid var(--card-border-hover);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            max-width: 420px;
+            width: 100%;
             text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--card-border);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.8rem; }
+            .glass-card { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Moving Background Orbs -->
     <div class="ambient-background">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
     </div>
 
-    <div class="wrapper">
-        <!-- Floating Glass Nav -->
+    <div class="app-container">
+        <!-- Persistent Top Glass Navbar -->
         <nav>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a class="nav-btn active" data-target="home">Home</a></li>
+                <li><a class="nav-btn" data-target="about">About</a></li>
+                <li><a class="nav-btn" data-target="skills">Skills</a></li>
+                <li><a class="nav-btn" data-target="projects">Projects</a></li>
+                <li><a class="nav-btn" data-target="education">Education</a></li>
+                <li><a class="nav-btn" data-target="contact">Contact</a></li>
             </ul>
         </nav>
 
-        <!-- Hero Section -->
-        <header class="hero">
-            <div class="status-badge">
-                <span class="status-dot"></span> 4th-Year CpE Student & AI-Driven Full-Stack Developer
-            </div>
-            <h1>LUMACAD, MARK JONEL C.</h1>
-            <p class="hero-subtitle">
-                <span class="status-dot" style="display:inline-block; margin-right: 0.4rem;"></span>
-                AI-Driven Full-Stack Development | Engineering Prompt Architecture | Embedded Systems
-            </p>
-            <p class="hero-desc">
-                Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
-                Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
-            </p>
+        <!-- Viewport View Area -->
+        <main class="view-viewport">
 
-            <div class="btn-group">
-                <a href="resume.pdf" target="_blank" class="btn btn-primary">
-                    Download Resume / CV
-                </a>
-                <a href="#contact" class="btn">
-                    Send Message
-                </a>
-            </div>
-
-            <!-- Quick Stats Bar -->
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-number">4th-Year</span>
-                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Academic Standing</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">Embedded & Web</span>
-                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Core Focus</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">AI-Driven</span>
-                    <span class="stat-label"><span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Build Methodology</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Bento Grid Layout -->
-        <main class="bento-grid">
-            
-            <!-- About Card (Span 8) -->
-            <div class="bento-card col-span-8" id="about">
-                <div class="section-tag"><span class="status-dot"></span> Background & Identity</div>
-                <h2 class="card-title">End-to-End System Architecture</h2>
-                <p class="card-text">
-                    As an AI-driven Full-Stack Developer, my expertise lies in system architecture, component integration, and workflow orchestration. 
-                    I utilize AI engineering prompt workflows to rapidly build and refine responsive web frontends and backend logic, while leveraging my Computer Engineering foundation to bridge microcontrollers (ESP32) with real-time physical peripherals and automation prototypes.
-                </p>
-            </div>
-
-            <!-- Education Card (Span 4) -->
-            <div class="bento-card col-span-4" id="education">
-                <div class="section-tag"><span class="status-dot"></span> Education</div>
-                <h2 class="card-title" style="font-size: 1.25rem;">BS Computer Engineering</h2>
-                <p class="card-text" style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>4th-Year Standing</strong></p>
-                <p class="card-text" style="font-size: 0.9rem; color: var(--text-main);">ICCT Colleges Foundation Inc.</p>
-                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-top: 0.5rem;">College of Engineering & Digital Tech</p>
-            </div>
-
-            <!-- Technical Stack Card (Span 12) -->
-            <div class="bento-card col-span-12" id="skills">
-                <div class="section-tag"><span class="status-dot"></span> Technical Competencies</div>
-                <div class="skills-container">
-                    <div class="skill-category">
-                        <h3>Full-Stack & Prompt Engineering</h3>
-                        <ul>
-                            <li>AI-Driven Full-Stack Architecture</li>
-                            <li>Engineering Prompt Design</li>
-                            <li>Frontend UI/UX Systems</li>
-                            <li>Backend Workflow & Logic</li>
-                            <li>API Integration & Data Flow</li>
-                        </ul>
+            <!-- HOME SECTION -->
+            <section id="home" class="view-section active">
+                <div class="glass-card">
+                    <div class="status-badge">
+                        <span class="status-dot"></span> 4th-Year CpE Student & AI-Driven Full-Stack Developer
                     </div>
-                    <div class="skill-category">
-                        <h3>Hardware & Prototyping</h3>
-                        <ul>
-                            <li>ESP32 Microcontroller Dev</li>
-                            <li>Arduino System Wiring</li>
-                            <li>ILI9488 TFT LCD Integration</li>
-                            <li>OVW6 Rotary Encoders</li>
-                            <li>Circuit Troubleshooting</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Engineering Core</h3>
-                        <ul>
-                            <li>C / C++ Microcontroller Concepts</li>
-                            <li>Arduino IDE Environment</li>
-                            <li>Serial Debugging & Logging</li>
-                            <li>Interrupt-driven Code Logic</li>
-                            <li>Git & Repository Management</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Project Card (Span 12) -->
-            <div class="bento-card col-span-12" id="projects">
-                <div class="section-tag"><span class="status-dot"></span> Featured Engineering Project</div>
-                <div class="project-top">
-                    <div>
-                        <h2 class="card-title" style="font-size: 1.35rem;">MetroSure — Digital Measuring & Tracking System</h2>
-                        <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Lead Hardware & Embedded Developer</p>
-                    </div>
-                    <span class="project-tag">Prototype Stage</span>
-                </div>
-                
-                <p class="card-text" style="margin-bottom: 1rem;">
-                    An embedded hardware prototype built to accurately measure and track the displacement length 
-                    of aluminum profiles during manual cutting operations, minimizing manual measurement errors.
-                </p>
-
-                <div class="workflow-box">
-                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">
-                        <span class="status-dot" style="display:inline-block; margin-right: 0.3rem;"></span> Core System Workflow Logic:
+                    <h1>LUMACAD, MARK JONEL C.</h1>
+                    <p class="hero-subtitle">
+                        AI-Driven Full-Stack Development | Engineering Prompt Architecture | Embedded Systems
                     </p>
-                    <ul>
-                        <li>User inputs target length via TFT touchscreen interface.</li>
-                        <li>START command triggers measurement tracking sequence.</li>
-                        <li>Measuring wheel coupled with rotary encoder monitors profile feed distance.</li>
-                        <li>ESP32 processes pulse feedback and updates display metrics in real-time.</li>
-                        <li>System indicates target completion sequence before cutting.</li>
-                    </ul>
-                </div>
+                    <p class="card-text">
+                        Computer Engineering student bridging physical hardware mechanics with end-to-end software solutions. 
+                        Leveraging advanced AI prompt engineering and full-stack architecture to rapidly build web interfaces, backend flows, and ESP32 hardware integrations.
+                    </p>
 
-                <div class="tech-stack">
-                    <span class="tech-pill">ESP32-S3</span>
-                    <span class="tech-pill">C++ / Arduino IDE</span>
-                    <span class="tech-pill">3.5" ILI9488 TFT</span>
-                    <span class="tech-pill">XPT2046 Touch</span>
-                    <span class="tech-pill">OVW6-1024-2HC Encoder</span>
-                </div>
-            </div>
-
-            <!-- Connect Card with Form (Span 12) -->
-            <div class="bento-card col-span-12" id="contact">
-                <div class="section-tag"><span class="status-dot"></span> Get In Touch</div>
-                <h2 class="card-title">Send a Direct Message</h2>
-                <p class="card-text" style="max-width: 650px; margin-bottom: 1rem;">
-                    Have a project idea, collaboration opportunity, or hardware inquiry? Send a direct email through the form below or connect on social media:
-                </p>
-
-                <!-- Web3Forms Working Contact Form -->
-                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-                    <input type="hidden" name="access_key" value="724edb3e-1aac-4408-9f10-4535a419365b">
-                    <input type="hidden" name="subject" value="New Portfolio Message from Lumacad Web Site">
-
-                    <div class="form-group">
-                        <label for="name"><span class="status-dot" style="display:inline-block;"></span> YOUR NAME</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your full name" class="form-input">
+                    <div class="btn-group">
+                        <a href="resume.pdf" target="_blank" class="btn btn-primary">Download Resume / CV</a>
+                        <button class="btn nav-btn" data-target="contact">Send Message</button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email"><span class="status-dot" style="display:inline-block;"></span> YOUR EMAIL</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email address" class="form-input">
+                    <div class="stats-bar">
+                        <div class="stat-item">
+                            <span class="stat-number">4th-Year</span>
+                            <span class="stat-label">Academic Standing</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">Embedded & Web</span>
+                            <span class="stat-label">Core Focus</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">AI-Driven</span>
+                            <span class="stat-label">Build Methodology</span>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="message"><span class="status-dot" style="display:inline-block;"></span> MESSAGE</label>
-                        <textarea id="message" name="message" required placeholder="Let's build something together..." class="form-textarea"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">
-                        Send Message
-                    </button>
-                </form>
-
-                <div class="btn-group" style="margin-top: 2rem;">
-                    <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn">
-                        Explore GitHub Profile
-                    </a>
-                    <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="btn">
-                        Connect on Facebook
-                    </a>
                 </div>
-            </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="view-section">
+                <div class="glass-card">
+                    <div class="section-tag"><span class="status-dot"></span> Background & Identity</div>
+                    <h2 class="card-title">End-to-End System Architecture</h2>
+                    <p class="card-text" style="margin-bottom: 1rem;">
+                        As an AI-driven Full-Stack Developer, my expertise lies in system architecture, component integration, and workflow orchestration.
+                    </p>
+                    <p class="card-text">
+                        I utilize AI engineering prompt workflows to rapidly build and refine responsive web frontends and backend logic, while leveraging my Computer Engineering foundation to bridge microcontrollers (ESP32) with real-time physical peripherals and automation prototypes.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SKILLS SECTION -->
+            <section id="skills" class="view-section">
+                <div class="glass-card">
+                    <div class="section-tag"><span class="status-dot"></span> Technical Competencies</div>
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h3>Full-Stack & Prompting</h3>
+                            <ul>
+                                <li>AI-Driven Full-Stack Architecture</li>
+                                <li>Engineering Prompt Design</li>
+                                <li>Frontend UI/UX Systems</li>
+                                <li>Backend Workflow & Logic</li>
+                                <li>API Integration & Data Flow</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>Hardware & Prototyping</h3>
+                            <ul>
+                                <li>ESP32 Microcontroller Dev</li>
+                                <li>Arduino System Wiring</li>
+                                <li>ILI9488 TFT LCD Integration</li>
+                                <li>OVW6 Rotary Encoders</li>
+                                <li>Circuit Troubleshooting</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>Engineering Core</h3>
+                            <ul>
+                                <li>C / C++ Microcontroller Concepts</li>
+                                <li>Arduino IDE Environment</li>
+                                <li>Serial Debugging & Logging</li>
+                                <li>Interrupt-driven Code Logic</li>
+                                <li>Git & Repository Management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS SECTION -->
+            <section id="projects" class="view-section">
+                <div class="glass-card">
+                    <div class="section-tag"><span class="status-dot"></span> Featured Engineering Project</div>
+                    <div class="project-top">
+                        <div>
+                            <h2 class="card-title" style="font-size: 1.35rem;">MetroSure — Digital Measuring & Tracking System</h2>
+                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Lead Hardware & Embedded Developer</p>
+                        </div>
+                        <span class="project-tag">Prototype Stage</span>
+                    </div>
+                    
+                    <p class="card-text">
+                        An embedded hardware prototype built to accurately measure and track the displacement length 
+                        of aluminum profiles during manual cutting operations, minimizing manual measurement errors.
+                    </p>
+
+                    <div class="workflow-box">
+                        <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">
+                            Core System Workflow Logic:
+                        </p>
+                        <ul>
+                            <li>User inputs target length via TFT touchscreen interface.</li>
+                            <li>START command triggers measurement tracking sequence.</li>
+                            <li>Measuring wheel coupled with rotary encoder monitors profile feed distance.</li>
+                            <li>ESP32 processes pulse feedback and updates display metrics in real-time.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-pill">ESP32-S3</span>
+                        <span class="tech-pill">C++ / Arduino IDE</span>
+                        <span class="tech-pill">3.5" ILI9488 TFT</span>
+                        <span class="tech-pill">OVW6-1024-2HC Encoder</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDUCATION SECTION -->
+            <section id="education" class="view-section">
+                <div class="glass-card">
+                    <div class="section-tag"><span class="status-dot"></span> Education</div>
+                    <h2 class="card-title">BS Computer Engineering</h2>
+                    <p class="card-text" style="font-size: 1.1rem; margin-bottom: 0.5rem;"><strong>4th-Year Standing</strong></p>
+                    <p class="card-text" style="color: var(--text-main);">ICCT Colleges Foundation Inc.</p>
+                    <p style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); margin-top: 0.75rem;">
+                        College of Engineering & Digital Technology
+                    </p>
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="view-section">
+                <div class="glass-card">
+                    <div class="section-tag"><span class="status-dot"></span> Get In Touch</div>
+                    <h2 class="card-title">Send a Direct Message</h2>
+
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                        <input type="hidden" name="access_key" value="724edb3e-1aac-4408-9f10-4535a419365b">
+
+                        <div class="form-group">
+                            <label for="name">YOUR NAME</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">YOUR EMAIL</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">MESSAGE</label>
+                            <textarea id="message" name="message" required placeholder="Let's build something together..." class="form-textarea"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary" style="align-self: flex-start;">
+                            Send Message
+                        </button>
+                    </form>
+
+                    <div class="btn-group" style="margin-top: 1.5rem;">
+                        <a href="https://github.com/jonellumacad1968-cell" target="_blank" class="btn" aria-label="GitHub Profile">
+                            Explore GitHub Profile
+                        </a>
+                        <a href="https://www.facebook.com/share/19opPom1oq/" target="_blank" class="btn" aria-label="Facebook Profile">
+                            Connect on Facebook
+                        </a>
+                    </div>
+                </div>
+            </section>
 
         </main>
-
-        <footer>
-            <p>LUMACAD, MARK JONEL C. &copy; 2026 | Computer Engineering Portfolio</p>
-        </footer>
     </div>
 
+    <!-- Success Popup Modal -->
+    <div id="successModal">
+        <div class="modal-content">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+            <h3 style="color: #fff; font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;">Message Sent!</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+                Thank you for reaching out. Your message has been delivered to Mark Jonel.
+            </p>
+            <button id="modalOkBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                OK — Return Home
+            </button>
+        </div>
+    </div>
+
+    <!-- SPA Router Script -->
+    <script>
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.view-section');
+        const contactForm = document.querySelector('.contact-form');
+        const successModal = document.getElementById('successModal');
+        const modalOkBtn = document.getElementById('modalOkBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function switchSection(targetId) {
+            // Update active navbar state
+            document.querySelectorAll('.nav-links .nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-target') === targetId);
+            });
+
+            // Transition active section card
+            sections.forEach(section => {
+                section.classList.toggle('active', section.id === targetId);
+            });
+        }
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                if (target) switchSection(target);
+            });
+        });
+
+        // Contact Form Handling via Fetch API
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Sending...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    successModal.style.display = 'flex';
+                    contactForm.reset();
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                alert('Network error. Please check your connection.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        modalOkBtn.addEventListener('click', function() {
+            successModal.style.display = 'none';
+            switchSection('home');
+        });
+    </script>
 </body>
 </html>
