@@ -1,0 +1,1450 @@
+/* ==========================================================================
+   MARK JONEL LUMACAD — BAKI THE GRAPPLER CONCEPT PORTFOLIO
+   Theme: Hanma Demon Blood Red // Carbon Obsidian // Absolute Precision
+   Layout: No-Scroll Single-Screen Viewport Architecture (Balanced & Animated)
+   ========================================================================== */
+
+:root {
+    /* Core Obsidian & Carbon Palette */
+    --baki-black: #06070a;
+    --baki-carbon: #0d0e14;
+    --baki-card-bg: rgba(14, 16, 23, 0.88);
+    --baki-card-hover: rgba(22, 24, 36, 0.95);
+    
+    /* Hanma Demon Blood Red Accents */
+    --crimson-core: #ff1a40;
+    --crimson-dark: #be123c;
+    --crimson-glow: rgba(255, 26, 64, 0.28);
+    --crimson-subtle: rgba(255, 26, 64, 0.12);
+    --border-crimson: rgba(255, 26, 64, 0.35);
+
+    /* Hanma Aura Gold & Embers */
+    --gold-accent: #fbbf24;
+    --gold-glow: rgba(251, 191, 36, 0.2);
+
+    /* Typography Colors */
+    --text-white: #f8fafc;
+    --text-silver: #cbd5e1;
+    --text-ash: #94a3b8;
+    --text-dim: #64748b;
+
+    /* Fonts */
+    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --font-display: 'Cinzel', serif;
+
+    /* Transitions */
+    --speed-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    --speed-norm: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Reset & Viewport Confinement (No Page Scroll on Desktop)
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Enforces no outer scrolling */
+    background-color: var(--baki-black);
+    color: var(--text-white);
+    font-family: var(--font-heading);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+    outline: 2px solid var(--crimson-core);
+    outline-offset: 3px;
+}
+
+/* Custom Scrollbars for internal view containers */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--baki-black);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--crimson-dark);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--crimson-core);
+}
+
+/* ==========================================================================
+   Background: Hanma Demon Aura, Carbon Weave & Animated Embers
+   ========================================================================== */
+.aura-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #10121c 0%, var(--baki-black) 80%);
+}
+
+.demon-aura-core {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255, 26, 64, 0.16) 0%, rgba(190, 18, 60, 0.05) 45%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    animation: auraBreath 8s infinite alternate ease-in-out;
+}
+
+.demon-aura-pulse {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 20%;
+    right: 15%;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 60%);
+    filter: blur(90px);
+    pointer-events: none;
+}
+
+@keyframes auraBreath {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+    100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.carbon-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 70%, transparent 100%);
+}
+
+.slash-lines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 26, 64, 0.015),
+        rgba(255, 26, 64, 0.015) 2px,
+        transparent 2px,
+        transparent 16px
+    );
+}
+
+/* Floating Animated Embers */
+.floating-embers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.ember {
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    background: var(--crimson-core);
+    box-shadow: 0 0 10px var(--crimson-core), 0 0 20px var(--crimson-dark);
+    opacity: 0;
+    animation: floatEmber 12s infinite linear;
+}
+
+.ember-1 { left: 10%; width: 4px; height: 4px; animation-duration: 10s; animation-delay: 0s; }
+.ember-2 { left: 25%; width: 3px; height: 3px; animation-duration: 14s; animation-delay: 2s; background: var(--gold-accent); box-shadow: 0 0 10px var(--gold-accent); }
+.ember-3 { left: 45%; width: 5px; height: 5px; animation-duration: 12s; animation-delay: 4s; }
+.ember-4 { left: 60%; width: 3px; height: 3px; animation-duration: 16s; animation-delay: 1s; }
+.ember-5 { left: 75%; width: 4px; height: 4px; animation-duration: 11s; animation-delay: 5s; background: var(--gold-accent); box-shadow: 0 0 10px var(--gold-accent); }
+.ember-6 { left: 88%; width: 3px; height: 3px; animation-duration: 13s; animation-delay: 3s; }
+.ember-7 { left: 35%; width: 4px; height: 4px; animation-duration: 15s; animation-delay: 7s; }
+.ember-8 { left: 95%; width: 5px; height: 5px; animation-duration: 12s; animation-delay: 6s; }
+
+@keyframes floatEmber {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    15% { opacity: 0.75; }
+    85% { opacity: 0.45; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+
+/* ==========================================================================
+   Application Shell
+   ========================================================================== */
+.app-shell {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ==========================================================================
+   Command Dock (Top Navigation - Clean & Balanced)
+   ========================================================================== */
+.command-dock {
+    width: 100%;
+    padding: 1.1rem 2rem 0.5rem 2rem;
+    flex-shrink: 0;
+}
+
+.dock-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    background: rgba(13, 14, 20, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-crimson);
+    border-radius: 12px;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -5px var(--crimson-subtle);
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.dock-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-white);
+    flex-shrink: 0;
+}
+
+.hanma-badge {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--crimson-core), #880824);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 900;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    box-shadow: 0 0 12px var(--crimson-glow);
+    transition: transform var(--speed-fast);
+}
+
+.dock-brand:hover .hanma-badge {
+    transform: scale(1.05);
+}
+
+.brand-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+}
+
+.blood-dot {
+    color: var(--crimson-core);
+}
+
+.brand-sub {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    color: var(--text-ash);
+    letter-spacing: 1px;
+}
+
+/* Nav Switcher Tabs (Balanced without Numbering) */
+.dock-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    flex: 1;
+}
+
+.dock-tab {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-ash);
+    padding: 0.55rem 1.15rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--speed-fast);
+}
+
+.dock-tab:hover {
+    color: var(--text-white);
+    background: rgba(255, 26, 64, 0.08);
+    border-color: rgba(255, 26, 64, 0.25);
+    transform: translateY(-1px);
+}
+
+.dock-tab.active {
+    color: #fff;
+    background: linear-gradient(135deg, rgba(255, 26, 64, 0.22) 0%, rgba(13, 14, 20, 0.9) 100%);
+    border-color: var(--crimson-core);
+    box-shadow: 0 0 15px -3px var(--crimson-glow);
+}
+
+.dock-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold-accent);
+    padding: 0.4rem 0.85rem;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.status-pulse-baki {
+    width: 7px;
+    height: 7px;
+    background-color: var(--gold-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold-accent);
+    animation: pulseBaki 1.5s infinite;
+}
+
+@keyframes pulseBaki {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+@media (max-width: 960px) {
+    .command-dock {
+        padding: 0.75rem 1rem 0.25rem 1rem;
+    }
+    .dock-container {
+        flex-wrap: wrap;
+        padding: 0.6rem 1rem;
+    }
+    .dock-status {
+        display: none;
+    }
+    .dock-tab {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.76rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .dock-nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-top: 0.5rem;
+        justify-content: flex-start;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ==========================================================================
+   View Stage (No-Scroll View Switcher & Smooth Staggered Entrance)
+   ========================================================================== */
+.view-stage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-panel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    transition: opacity var(--speed-norm), transform var(--speed-norm);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2rem 2rem 3.5rem 2rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.view-panel.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    z-index: 20;
+}
+
+/* Staggered entrance animations on view panels */
+.view-panel.active .view-header {
+    animation: bakiFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.view-panel.active .home-grid > div:nth-child(1),
+.view-panel.active .about-grid > div:nth-child(1),
+.view-panel.active .arsenal-grid > .arsenal-card:nth-child(1),
+.view-panel.active .battlegrounds-grid > .battle-card:nth-child(1),
+.view-panel.active .contact-dual-grid > div:nth-child(1) {
+    animation: bakiFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+.view-panel.active .home-grid > div:nth-child(2),
+.view-panel.active .about-grid > div:nth-child(2),
+.view-panel.active .arsenal-grid > .arsenal-card:nth-child(2),
+.view-panel.active .battlegrounds-grid > .battle-card:nth-child(2),
+.view-panel.active .contact-dual-grid > div:nth-child(2) {
+    animation: bakiFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+}
+
+.view-panel.active .arsenal-grid > .arsenal-card:nth-child(3) {
+    animation: bakiFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+}
+
+.view-panel.active .arsenal-grid > .arsenal-card:nth-child(4) {
+    animation: bakiFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+@keyframes bakiFadeUp {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.view-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* View Header - Balanced & Aligned */
+.view-header {
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    width: 100%;
+    text-align: left;
+}
+
+.view-kicker {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--crimson-core);
+    margin-bottom: 0.4rem;
+}
+
+.view-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.75px;
+    line-height: 1.2;
+    color: var(--text-white);
+}
+
+/* ==========================================================================
+   VIEW 1: HOME STAGE (Symmetrical & Balanced)
+   ========================================================================== */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1.22fr 0.88fr;
+    gap: 3rem;
+    align-items: center;
+    margin: auto 0;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .home-grid {
+        grid-template-columns: 1fr;
+        padding-top: 1rem;
+        gap: 2rem;
+    }
+    .hero-graphic-block {
+        display: none;
+    }
+}
+
+.power-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: var(--crimson-subtle);
+    border: 1px solid var(--border-crimson);
+    border-radius: 4px;
+    color: var(--crimson-core);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1.2rem;
+}
+
+.hero-headline {
+    font-size: clamp(2.3rem, 4.5vw, 3.6rem);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 1.15rem;
+    color: #ffffff;
+}
+
+.blood-glow-text {
+    background: linear-gradient(135deg, #ffffff 10%, var(--crimson-core) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px var(--crimson-glow);
+}
+
+.hero-manifesto {
+    font-size: clamp(0.95rem, 1.25vw, 1.05rem);
+    line-height: 1.7;
+    color: var(--text-silver);
+    margin-bottom: 1.75rem;
+    max-width: 640px;
+}
+
+.hero-manifesto strong {
+    color: #fff;
+    border-bottom: 1px solid var(--crimson-core);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Baki Buttons with Hover Sheen Animation */
+.baki-btn {
+    padding: 0.75rem 1.6rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all var(--speed-fast);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    position: relative;
+    overflow: hidden;
+}
+
+.baki-btn-crimson {
+    background: linear-gradient(135deg, var(--crimson-core) 0%, #a80727 100%);
+    color: #fff;
+    border: 1px solid #ff4767;
+    box-shadow: 0 4px 20px -3px var(--crimson-glow);
+}
+
+.baki-btn-crimson::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -70%;
+    width: 45%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: rotate(25deg);
+    pointer-events: none;
+    transition: none;
+}
+
+.baki-btn-crimson:hover::after {
+    left: 140%;
+    transition: left 0.65s ease-in-out;
+}
+
+.baki-btn-crimson:hover {
+    background: linear-gradient(135deg, #ff3356 0%, #c40a30 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -2px var(--crimson-glow);
+}
+
+.baki-btn-ghost {
+    background: rgba(15, 17, 24, 0.8);
+    color: var(--text-white);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.baki-btn-ghost:hover {
+    border-color: var(--crimson-core);
+    color: var(--crimson-core);
+    background: rgba(255, 26, 64, 0.1);
+    transform: translateY(-2px);
+}
+
+.baki-btn-block {
+    width: 100%;
+}
+
+.btn-arrow {
+    transition: transform var(--speed-fast);
+}
+
+.baki-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Power Metrics Grid - Equal Sizing & Alignment */
+.power-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    border-top: 1px solid rgba(255, 26, 64, 0.2);
+    padding-top: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .power-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.metric-box {
+    background: rgba(13, 14, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 0.75rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color var(--speed-fast), transform var(--speed-fast);
+}
+
+.metric-box:hover {
+    border-color: var(--border-crimson);
+    transform: translateY(-2px);
+}
+
+.metric-val {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--crimson-core);
+    line-height: 1.1;
+}
+
+.metric-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-top: 0.25rem;
+}
+
+.metric-desc {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    line-height: 1.35;
+    margin-top: 0.15rem;
+}
+
+/* Hero Graphic Shield - Balanced Visual Weight */
+.demon-shield-card {
+    background: var(--baki-card-bg);
+    border: 1px solid var(--border-crimson);
+    border-radius: 12px;
+    padding: 1.85rem;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(255, 26, 64, 0.06);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    transition: border-color var(--speed-norm), box-shadow var(--speed-norm);
+}
+
+.demon-shield-card:hover {
+    border-color: var(--crimson-core);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.9), 0 0 25px -5px var(--crimson-glow);
+}
+
+.shield-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--crimson-core);
+    border-bottom: 1px solid rgba(255, 26, 64, 0.2);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.shield-badge-sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-accent);
+    letter-spacing: 1px;
+}
+
+.shield-graphic {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.hanma-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-circle {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #25030b 0%, #0d0e14 100%);
+    border: 2px solid var(--crimson-core);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 25px var(--crimson-glow);
+    transition: transform var(--speed-norm);
+}
+
+.demon-shield-card:hover .inner-circle {
+    transform: scale(1.05);
+}
+
+.core-symbol {
+    font-family: var(--font-mono);
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+}
+
+.core-sub {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--crimson-core);
+    letter-spacing: 1px;
+    margin-top: 0.2rem;
+}
+
+.rotating-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 26, 64, 0.45);
+    animation: rotateRing 14s linear infinite;
+}
+
+@keyframes rotateRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.shield-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: rgba(8, 9, 13, 0.75);
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stat-prop {
+    color: var(--text-dim);
+}
+
+.stat-val {
+    color: var(--text-white);
+    font-weight: 700;
+}
+
+.highlight-gold {
+    color: var(--gold-accent);
+}
+
+.shield-quote {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-ash);
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.85rem;
+}
+
+/* ==========================================================================
+   VIEW 2: ABOUT ME (Balanced 2-Column Grid)
+   ========================================================================== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 2.25rem;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.about-narrative {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.baki-card {
+    background: var(--baki-card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 1.85rem;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    position: relative;
+    transition: border-color var(--speed-fast);
+}
+
+.baki-card:hover {
+    border-color: var(--border-crimson);
+}
+
+.baki-card-crimson {
+    border-color: var(--border-crimson);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 26, 64, 0.05);
+}
+
+.card-title-baki {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.85rem;
+}
+
+.card-p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-silver);
+    margin-bottom: 0.85rem;
+}
+
+.card-p:last-of-type {
+    margin-bottom: 0;
+}
+
+.client-value-box {
+    background: rgba(13, 14, 20, 0.92);
+    border-left: 3px solid var(--crimson-core);
+    border-radius: 0 8px 8px 0;
+    padding: 1.35rem;
+}
+
+.val-box-title {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--gold-accent);
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.baki-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.baki-checklist li {
+    font-size: 0.88rem;
+    color: var(--text-silver);
+    line-height: 1.5;
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.baki-checklist li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--crimson-core);
+    font-weight: 900;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.about-sidebar {
+    height: 100%;
+}
+
+.credentials-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-heading {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 1.5px;
+    color: var(--crimson-core);
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 26, 64, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.creds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    margin-bottom: 1.75rem;
+}
+
+.cred-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 0.7rem;
+}
+
+.cred-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 0.2rem;
+}
+
+.cred-value {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.card-cta-wrap {
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   VIEW 3: ARSENAL (SKILLS) — Symmetrical 2x2 Clean Grid
+   ========================================================================== */
+.skills-layout {
+    width: 100%;
+}
+
+.skills-layout .view-header {
+    margin-bottom: 2rem;
+}
+
+.arsenal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    align-items: stretch;
+}
+
+@media (max-width: 860px) {
+    .arsenal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.arsenal-card {
+    background: var(--baki-card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: all var(--speed-fast);
+}
+
+.arsenal-card:hover {
+    border-color: var(--border-crimson);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -10px var(--crimson-glow);
+}
+
+.highlight-card {
+    border-color: rgba(255, 26, 64, 0.45);
+    background: linear-gradient(145deg, rgba(25, 12, 18, 0.92) 0%, rgba(13, 14, 20, 0.92) 100%);
+}
+
+.arsenal-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+}
+
+.arsenal-icon {
+    font-size: 1.35rem;
+}
+
+.arsenal-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.arsenal-desc {
+    font-size: 0.88rem;
+    color: var(--text-ash);
+    margin-bottom: 1.35rem;
+    line-height: 1.5;
+}
+
+.tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.chip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.7rem;
+    background: rgba(10, 11, 16, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    color: var(--text-silver);
+    transition: border-color var(--speed-fast);
+}
+
+.chip:hover {
+    border-color: var(--crimson-core);
+    color: #fff;
+}
+
+.active-chip {
+    background: rgba(255, 26, 64, 0.15);
+    border-color: rgba(255, 26, 64, 0.45);
+    color: #fff;
+}
+
+/* ==========================================================================
+   VIEW 4: BATTLEGROUNDS (PROJECTS) — Equal Height Cards
+   ========================================================================== */
+.projects-layout {
+    width: 100%;
+}
+
+.battlegrounds-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    align-items: stretch;
+}
+
+@media (max-width: 960px) {
+    .battlegrounds-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.battle-card {
+    background: var(--baki-card-bg);
+    border: 1px solid var(--border-crimson);
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+    transition: all var(--speed-fast);
+}
+
+.battle-card:hover {
+    border-color: var(--crimson-core);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px -10px var(--crimson-glow);
+}
+
+.battle-badge-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-bottom: 0.85rem;
+}
+
+.battle-badge {
+    color: var(--crimson-core);
+    font-weight: 700;
+}
+
+.battle-status {
+    color: var(--gold-accent);
+    padding: 0.2rem 0.55rem;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+.battle-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.65rem;
+    line-height: 1.25;
+}
+
+.battle-lead {
+    font-size: 0.9rem;
+    color: var(--text-ash);
+    margin-bottom: 1.2rem;
+    line-height: 1.55;
+}
+
+.battle-breakdown {
+    background: rgba(7, 8, 12, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.35rem;
+}
+
+.break-row {
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.break-label {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--crimson-core);
+    display: inline-block;
+    margin-right: 0.35rem;
+}
+
+.break-val {
+    color: var(--text-silver);
+}
+
+.battle-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+    margin-top: auto;
+}
+
+.b-tech {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-ash);
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.battle-foot {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1rem;
+}
+
+.baki-link {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--crimson-core);
+    text-decoration: none;
+    transition: color var(--speed-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.baki-link:hover {
+    color: #ff5775;
+}
+
+/* ==========================================================================
+   VIEW 5: HIRE ME (CONTACT) — Symmetrical Two-Column Alignment
+   ========================================================================== */
+.contact-layout {
+    width: 100%;
+}
+
+.contact-dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2.25rem;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .contact-dual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contact-manifesto-box {
+    height: 100%;
+}
+
+.contact-manifesto-box .baki-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.crimson-copy-block {
+    background: rgba(10, 11, 16, 0.88);
+    border: 1px solid var(--border-crimson);
+    border-radius: 6px;
+    padding: 1.15rem;
+    margin: 1.5rem 0;
+}
+
+.copy-sublabel {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 0.45rem;
+}
+
+.copy-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 0.5rem 0.85rem;
+    border-radius: 4px;
+    gap: 0.5rem;
+}
+
+.email-code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--gold-accent);
+    word-break: break-all;
+}
+
+.baki-copy-btn {
+    background: var(--crimson-core);
+    color: #fff;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.4rem 0.85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background var(--speed-fast), transform var(--speed-fast);
+}
+
+.baki-copy-btn:hover {
+    background: #ff3356;
+    transform: scale(1.05);
+}
+
+.copy-alert {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold-accent);
+    margin-top: 0.45rem;
+    min-height: 1rem;
+}
+
+.social-links-baki {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: auto;
+}
+
+.baki-social-pill {
+    padding: 0.65rem 1.15rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all var(--speed-fast);
+}
+
+.baki-social-pill:hover {
+    border-color: var(--crimson-core);
+    color: var(--crimson-core);
+    background: rgba(255, 26, 64, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Contact Form - Clean & Balanced */
+.contact-form-box {
+    height: 100%;
+}
+
+.baki-form {
+    background: var(--baki-card-bg);
+    border: 1px solid var(--border-crimson);
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    height: 100%;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+.form-banner {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 1.5px;
+    color: var(--crimson-core);
+    border-bottom: 1px solid rgba(255, 26, 64, 0.2);
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.25rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-field label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-ash);
+    font-weight: 700;
+}
+
+.req {
+    color: var(--crimson-core);
+}
+
+.baki-input {
+    background: rgba(6, 7, 10, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 0.75rem 0.95rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color var(--speed-fast), box-shadow var(--speed-fast);
+}
+
+.baki-input:focus {
+    outline: none;
+    border-color: var(--crimson-core);
+    box-shadow: 0 0 0 2px var(--crimson-glow);
+}
+
+.form-feedback-baki {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    min-height: 1.2rem;
+}
+
+.form-feedback-baki.success {
+    color: var(--gold-accent);
+}
+
+.form-feedback-baki.error {
+    color: #ef4444;
+}
+
+/* ==========================================================================
+   Command Dock Bottom Bar
+   ========================================================================== */
+.dock-footer {
+    width: 100%;
+    padding: 0.6rem 2rem 0.9rem 2rem;
+    flex-shrink: 0;
+}
+
+.footer-bar-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 26, 64, 0.2);
+    padding-top: 0.65rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+}
+
+.kanji-quote {
+    color: var(--crimson-core);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.footer-credit {
+    letter-spacing: 1px;
+}
+
+.footer-tactical {
+    color: var(--gold-accent);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .footer-bar-inner {
+        flex-direction: column;
+        gap: 0.35rem;
+        text-align: center;
+    }
+}
